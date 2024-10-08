@@ -6,6 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Dropdown } from 'react-native-element-dropdown';
 import { AntDesign } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import LocationC from '../../componets/LocationC';
 
 const validationSchema = Yup.object().shape({
   fecha: Yup.string().required('Fecha es requerida'),
@@ -41,6 +42,10 @@ const ExpensesScreen = () => {
     const currentDate = selectedDate || date;
     setShowDatePicker(false);
     setDate(currentDate);
+  };
+
+  const handleLocationSelect = (coords) => {
+    console.log('Selected location:', coords);
   };
 
   return (
@@ -165,7 +170,7 @@ const ExpensesScreen = () => {
           />
           {errors.sitio && touched.sitio && <Text style={styles.error}>{errors.sitio}</Text>}
 
-          <Button title="+" onPress={() => handleImagePicker(setFieldValue)} />
+          <Button title="Subir comprobante   +" onPress={() => handleImagePicker(setFieldValue)} />
           {values.comprobante ? (
             <Image source={{ uri: values.comprobante }} style={styles.image} />
           ) : null}
@@ -187,6 +192,8 @@ const ExpensesScreen = () => {
             style={styles.backgroundInput}
           />
           {errors.localizacion && touched.localizacion && <Text style={styles.error}>{errors.localizacion}</Text>}
+
+          <LocationC onLocationSelect={handleLocationSelect} />
 
           <Button onPress={handleSubmit} title="Enviar" />
         </View>
