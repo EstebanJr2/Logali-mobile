@@ -193,7 +193,7 @@ const ExpensesScreen = () => {
           />
           {errors.localizacion && touched.localizacion && <Text style={styles.error}>{errors.localizacion}</Text>}
 
-          <LocationC onLocationSelect={handleLocationSelect} />
+          {/* <LocationC onLocationSelect={handleLocationSelect} /> */}
 
           <Button onPress={handleSubmit} title="Enviar" />
         </View>

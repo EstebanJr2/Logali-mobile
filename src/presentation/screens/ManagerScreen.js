@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ManagementStack from './manager/stack/ManagementStack';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
-import Location from '../../componets/LocationC'
 
 
 const ManagerScreen = () => {
@@ -27,8 +26,6 @@ const ManagerScreen = () => {
           <Text style={styles.navText}>Sitios</Text>
         </TouchableOpacity>
       </View>
-      <Location/>
-
     </View>
   );
 };
