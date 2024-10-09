@@ -4,7 +4,9 @@ import { View, Text, StyleSheet } from 'react-native';
 const SitesScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Sitios</Text>
+      <Text>{sitios.name}</Text>
+      <Text>{sitios.id}</Text>
+
     </View>
   );
 };

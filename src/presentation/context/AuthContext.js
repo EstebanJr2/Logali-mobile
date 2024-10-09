@@ -51,7 +51,8 @@ const AuthProvider = ({ children }) => {
   const [request, response, promptAsync] = useAuthRequest(
     {
       // @ts-ignore
-      clientId: process.env.EXPO_PUBLIC_KEYCLOAK_CLIENT_ID,
+      clientId: process.env.EXPO_PUBLIC_KEYCLOAK_CLIENT_ID, 
+      clientSecret: process.env.EXPO_PUBLIC_KEYCLOAK_KEY,
       redirectUri: redirectUri,
       scopes: ['openid', 'profile'],
     },
@@ -124,6 +125,7 @@ const AuthProvider = ({ children }) => {
         const formData = {
           grant_type: 'authorization_code',
           client_id: process.env.EXPO_PUBLIC_KEYCLOAK_CLIENT_ID,
+          clientSecret: process.env.EXPO_PUBLIC_KEYCLOAK_KEY,
           code: code,
           code_verifier: codeVerifier,
           redirect_uri: redirectUri,
@@ -146,6 +148,8 @@ const AuthProvider = ({ children }) => {
             body: formBody.join('&'),
           }
         )
+
+        console.log("token", response)
         if (response.ok) {
           const payload = await response.json()
           // @ts-ignore
