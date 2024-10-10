@@ -1,16 +1,18 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Menu } from '../componets/Menu'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import ManagementStack from './stack/ManagementStack';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 
 
+const ManagerScreen = () => {
+  const navigation = useNavigation();
 
-
-const ClientScreen = () => {
   return (
     <View style={styles.container}>
-       <View style={styles.navbar}>
+      <ManagementStack />
+
+      <View style={styles.navbar}>
         <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Attendance')}>
           <Icon name="check-circle" size={24} color="#4CAF50" />
           <Text style={styles.navText}>Asistencias</Text>
@@ -24,20 +26,37 @@ const ClientScreen = () => {
           <Text style={styles.navText}>Sitios</Text>
         </TouchableOpacity>
       </View>
-      <Text>Holaaaa</Text>
-      <Menu />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
     flex: 1,
-    justifyContent: 'center',
   },
-})
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderColor: '#ccc',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.5,
+    elevation: 3,
+  },
+  navItem: {
+    alignItems: 'center',
+  },
+  navText: {
+    fontSize: 12,
+    color: '#333',
+  },
+});
 
-
-export { ClientScreen }
+export { ManagerScreen };

@@ -6,7 +6,6 @@ const ExpenseDetails = ({ route }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Detalles del Gasto</Text>
 
       <Text style={styles.label}>Fecha:</Text>
       <Text style={styles.detail}>{expense.fecha}</Text>

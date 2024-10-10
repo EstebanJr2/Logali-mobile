@@ -8,10 +8,11 @@ import ExpenseDetails from '../../expenses/ExpensesDetails';
 import SitesDetails from '../../Sites/SitesDetails';
 import AttendanceDetails from '../../attendance/AttendanceDetails';
 import AttendanceForm from '../../attendance/AttendanceForm';
+import {ProfileScreen}  from '../../profile/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
-const ManagementStack = () => {
+const ClientStack = () => {
   return (
     <Stack.Navigator >
       <Stack.Screen name="Attendance" component={AttendanceScreen} />
@@ -24,8 +25,11 @@ const ManagementStack = () => {
 
       <Stack.Screen name="Sites" component={SitesScreen} />
       <Stack.Screen name="SitesDetails" component={SitesDetails} />
+
+      <Stack.Screen name="profile" component={ProfileScreen} />
+
     </Stack.Navigator>
   );
 };
 
-export default ManagementStack;
+export default ClientStack;

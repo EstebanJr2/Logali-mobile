@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, Button } from 'react-native';
-import { fetchExpenses } from '../../../services/ExpensesService'; 
+import { fetchExpenses } from '../../../services/ExpensesService';
 import { useNavigation } from '@react-navigation/native';
+import { formatDate, formatDate1 } from '../../componets/FormaDate';
 
 const ExpensesScreen = () => {
   const [expenses, setExpenses] = useState([]);
@@ -12,7 +13,7 @@ const ExpensesScreen = () => {
     const loadExpenses = async () => {
       try {
         const expensesData = await fetchExpenses();
-        console.log('Expenses Data:', expensesData); 
+        console.log('Expenses Data:', expensesData);
         setExpenses(expensesData);
       } catch (error) {
         console.error('Error loading expenses:', error);
@@ -20,19 +21,24 @@ const ExpensesScreen = () => {
         setIsLoading(false);
       }
     };
-    
 
     loadExpenses();
   }, []);
+
 
   const renderExpenseItem = ({ item }) => (
     <TouchableOpacity
       style={styles.expenseItem}
       onPress={() => navigation.navigate('ExpenseDetails', { expense: item })}
     >
-      <Text style={styles.expenseText}>Tipo: {item.tipoGastos}</Text>
-      <Text style={styles.expenseText}>Fecha: {item.fecha}</Text>
-      <Text style={styles.expenseText}>Costo: ${item.costos}</Text>
+      <View style={styles.row}>
+        <View style={styles.infoContainer1}>
+          <Text style={styles.expenseText}>{item.tipoGasto}</Text>
+          <Text style={styles.expenseText}>{formatDate1(item.fecha)}</Text>
+          <Text style={styles.expenseText}>{formatDate(item.fecha)}</Text>
+        </View>
+        <Text style={[styles.infoContainer2, styles.expenseTextCosto]}>${item.costo}</Text>
+      </View>
     </TouchableOpacity>
   );
 
@@ -44,7 +50,7 @@ const ExpensesScreen = () => {
     <View style={styles.container}>
       <Button
         title="Agregar Gasto"
-        onPress={() => navigation.navigate('FormExpenses')} 
+        onPress={() => navigation.navigate('FormExpenses')}
       />
       <FlatList
         data={expenses}
@@ -59,16 +65,47 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#e7e2e2be',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  infoContainer1: {
+    padding: 28,
+    paddingLeft: 65,
+    paddingRight: 60,
+    paddingBottom: 47,
+    backgroundColor: '#ffffff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 35,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 35,
+    zIndex: 100,
+    marginRight: -33,
+  },
+  infoContainer2: {
+    paddingLeft: 45,
+    paddingRight: 10,
+    paddingBottom: 57,
+    paddingTop: 65,
+    backgroundColor: '#0059fff6',
+    borderTopRightRadius: 45,
+    borderBottomRightRadius: 0,
+    marginRight: 40,
   },
   expenseItem: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    padding: 4,
+    borderRadius: 10,
   },
   expenseText: {
     fontSize: 16,
-    color: 'black'
+    color: 'black',
+  },
+  expenseTextCosto: {
+    fontSize: 12,
+    color: '#ffffff',
+    fontWeight: '900'
   },
 });
 

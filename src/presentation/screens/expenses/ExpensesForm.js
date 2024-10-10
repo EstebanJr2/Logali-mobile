@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Dropdown } from 'react-native-element-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LocationC from '../../componets/LocationC';
-import { fetchSitios, fetchTipoGastos, createGasto } from '../../../services/ExpensesService';
+import { fetchSitios, fetchTipoGastos, saveGastos } from '../../../services/ExpensesService';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
@@ -53,7 +53,7 @@ const FormExpenses = () => {
   
     if (permissionResult.granted && galleryPermissionResult.granted) {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
@@ -89,7 +89,7 @@ const FormExpenses = () => {
         });
       });
 
-      const response = await createGasto(formData); 
+      const response = await saveGastos(formData); 
       console.log('Gasto creado:', response);
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -243,7 +243,7 @@ const FormExpenses = () => {
                 <Image key={index} source={{ uri }} style={styles.imagePreview} />
               ))}
 
-              <LocationC />
+              <LocationC setFieldValue={setFieldValue} />
 
               <Button onPress={handleSubmit} title="Enviar" />
             </View>
